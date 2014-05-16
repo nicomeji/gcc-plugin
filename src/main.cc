@@ -23,10 +23,10 @@ extern "C"
  
 #include "tm.h"
  
-#include "diagnostic.h"
-#include "c-common.h"
-#include "c-pragma.h"
+#include "c-family/c-common.h"
+#include "c-family/c-pragma.h"
 #include "cp/cp-tree.h"
+#include "diagnostic.h"
 }
  
 #include <iostream>

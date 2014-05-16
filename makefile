@@ -3,10 +3,13 @@ HEADERS_DIR  = inc
 TARGET_DIR   = target
 PROG_NM      = hello_wolrd
 
-EXTENTION      = .cc
-CXX            = g++
-CPPFLAGS       = -std=c++11
-COMPILE.cc    += -I $(HEADERS_DIR)
+EXTENTION          = .cc
+CXX                = g++
+# Unfortunatly gcc version 4.6 doesn't recognize this option.
+# CPPFLAGS         = -std=c++11
+CPPFLAGS           = -std=c++0x
+GCC_PLUGIN_HEADERS = /usr/lib/gcc/x86_64-linux-gnu/4.6/plugin/include/
+COMPILE.cc        += -I $(HEADERS_DIR) -I $(GCC_PLUGIN_HEADERS)
 
 SOURCES      = $(shell find "$(SRC_DIR)" -name "*$(EXTENTION)";)
 OBJECTS      = $(addprefix $(TARGET_DIR)/, $(patsubst %$(EXTENTION), %.o, $(SOURCES)))
