@@ -21,9 +21,9 @@
 *.app
 
 # Target dir
-target/
+target
 
 # Eclipse files
-.project/
-.cproject/
+.project
+.cproject
 
