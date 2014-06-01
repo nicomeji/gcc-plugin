@@ -23,3 +23,7 @@
 # Target dir
 target/
 
+# Eclipse files
+.project/
+.cproject/
+
