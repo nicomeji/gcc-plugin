@@ -10,7 +10,7 @@
 
 int plugin_is_GPL_compatible;
  
-void gate_callback (void*, void*)
+void gate_callback (void* unused_1, void* unused_2)
 {
   // If there were errors during compilation, let GCC handle the exit.
   if (errorcount || sorrycount)
@@ -24,7 +24,7 @@ void gate_callback (void*, void*)
   exit (r);
 }
  
-int plugin_init (plugin_name_args* info, plugin_gcc_version* ver)
+int plugin_init (struct plugin_name_args* info, struct plugin_gcc_version* ver)
 {
   int r=0;
  
@@ -40,4 +40,3 @@ int plugin_init (plugin_name_args* info, plugin_gcc_version* ver)
                      0);
   return r;
 }
-

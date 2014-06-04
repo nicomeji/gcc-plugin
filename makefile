@@ -4,7 +4,7 @@ TARGET_DIR    = target
 SHARED_LIB_NM = my_plugin
 
 EXTENTION     = .c
-CC            = g++
+CC            = gcc
 CPPFLAGS      = -I $(HEADERS_DIR) -I $(GCC_PLUGIN_HEADERS)
 CFLAGS        = -Wall -fPIC
 LDFLAGS       = -shared
