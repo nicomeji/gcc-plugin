@@ -1,4 +1,4 @@
-SRC_DIR       = src
+SRC_DIR       = src/main
 HEADERS_DIR   = inc
 TARGET_DIR    = target
 SHARED_LIB_NM = my_plugin
@@ -43,4 +43,3 @@ clean:
 
 print-%:
 	@echo '$*=$($*)'
-
