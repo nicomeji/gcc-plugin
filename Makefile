@@ -1,33 +1,19 @@
+.EXPORT_ALL_VARIABLES: CC TARGET_DIR COMMON_MK CPPFLAGS CFLAGS SHARED_LIB_NM
 .PHONY: clean all compile dependencies package
 
-#################################################################################
-#################### VARIABLES:
-TARGET_DIR          = target
-SHARED_LIB_NM       = my_plugin
+TARGET_DIR          = $(abspath target)
+COMMON_MK           = $(abspath common.mk)
+CC                  = gcc
 GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
 CPPFLAGS           += -I $(GCC_PLUGIN_HEADERS)
-CFLAGS              = -Wall -fPIC
-LDFLAGS             = -shared
-#################################################################################
-#################### BUILDING RULES:
-all: compile package
+all: dependencies #compile package
 	@echo "Library created."
 
 clean:
 	@rm -rf $(TARGET_DIR)
 	@echo "Target directory deleted."
 
-$(TARGET_DIR):
-	mkdir $(TARGET_DIR)
+dependencies:
+	$(MAKE) -C main
 
-dependencies: $(TARGET_DIR)
-	$(MAKE) -C main -e ROOT_DIR='$(CURDIR)' -e CPPFLAGS='$(CPPFLAGS)' -e CFLAGS='$(CFLAGS)' dependencies
-
-compile: dependencies $(OBJECTS)
-	$(MAKE) -C main -e ROOT_DIR='$(CURDIR)' -e CPPFLAGS='$(CPPFLAGS)' -e CFLAGS='$(CFLAGS)' compile
-
-package: $(TARGET_DIR)/lib$(SHARED_LIB_NM).so
-
-$(TARGET_DIR)/lib$(SHARED_LIB_NM).so: $(OBJECTS)
-	$(BASIC.c) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) -o $@
-#################################################################################
+$(shell mkdir -p $(TARGET_DIR))
