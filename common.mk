@@ -21,10 +21,7 @@ OBJECTS       = $(call getObjFileNameFromSrc,$(SOURCES))
 DEPENDENCIES  = $(call getDependsFileNameFromSrc,$(SOURCES))
 
 TARGET_LINK   = $(notdir $(TARGET_DIR))
-$(shell echo "$(TARGET_DIR)")
-$(shell ln -s $(TARGET_DIR) $(TARGET_LINK))
 TARGET_DIRS   = $(sort $(dir $(OBJECTS)))
-$(foreach DIR,$(TARGET_DIRS),$(shell mkdir -p $(DIR)))
 
 -include $(DEPENDENCIES)
 #################################################################################
@@ -32,10 +29,17 @@ $(foreach DIR,$(TARGET_DIRS),$(shell mkdir -p $(DIR)))
 BASIC.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH)
 LINK.c  = $(BASIC.c) $(LDFLAGS)
 
-$(TARGET_LINK)/%.o: %.c
+$(TARGET_LINK)/%.o: %.c | $(TARGET_DIRS)
 	$(BASIC.c) -c -o $@ $<
 	$(call printNiceMessage, "Object: $@ created.")
 
-$(TARGET_LINK)/%.mk: %.c
+$(TARGET_LINK)/%.mk: %.c | $(TARGET_DIRS)
 	$(BASIC.c) -MM $< -MT $(call getObjFileNameFromSrc, $<) -MF $@
 	$(call printNiceMessage, "Dependency: $@ created.")
+#################################################################################
+#################### STATIC PATTERN RULES:
+$(TARGET_DIRS): %: | $(TARGET_LINK)
+	mkdir -p $@
+
+$(TARGET_LINK):
+	ln -s $(TARGET_DIR) $@
