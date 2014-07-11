@@ -26,15 +26,12 @@ TARGET_DIRS   = $(sort $(dir $(OBJECTS)))
 -include $(DEPENDENCIES)
 #################################################################################
 #################### STATIC PATTERN RULES:
-BASIC.c = $(CC) $(CFLAGS) $(CPPFLAGS) $(TARGET_ARCH)
-LINK.c  = $(BASIC.c) $(LDFLAGS)
-
 $(TARGET_LINK)/%.o: %.c | $(TARGET_DIRS)
-	$(BASIC.c) -c -o $@ $<
+	$(COMPILE.c) -o $@ $<
 	$(call printNiceMessage, "Object: $@ created.")
 
 $(TARGET_LINK)/%.mk: %.c | $(TARGET_DIRS)
-	$(BASIC.c) -MM $< -MT $(call getObjFileNameFromSrc, $<) -MF $@
+	$(COMPILE.c) -MM $< -MT $(call getObjFileNameFromSrc, $<) -MF $@
 	$(call printNiceMessage, "Dependency: $@ created.")
 #################################################################################
 #################### STATIC PATTERN RULES:
