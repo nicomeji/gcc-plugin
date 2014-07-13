@@ -14,6 +14,6 @@ clean:
 	@echo "Target directory deleted."
 
 compile:
-	$(MAKE) -C main compile
+	$(MAKE) -C main
 
 $(shell mkdir -p $(TARGET_DIR))
