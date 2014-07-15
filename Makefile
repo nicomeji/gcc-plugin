@@ -1,8 +1,8 @@
 .EXPORT_ALL_VARIABLES: CC TARGET_DIR COMMON_MK
 .PHONY: clean all compile
 
-TARGET_DIR          = $(abspath target)
-COMMON_MK           = $(abspath common.mk)
+TARGET_DIR          = target
+COMMON_MK           = common.mk
 CC                  = gcc
 GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
 all: compile #package
@@ -13,6 +13,7 @@ clean:
 	@echo "Target directory deleted."
 
 compile:
-	$(MAKE) -C main
+	$(MAKE) -C main -e COMMON_MK=../$(COMMON_MK) -e TARGET_DIR=../$(TARGET_DIR)/main
 
 $(shell mkdir -p "$(TARGET_DIR)")
+
