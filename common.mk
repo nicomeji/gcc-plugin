@@ -45,4 +45,3 @@ $(TARGET_DIR)/%.o: %.c | $(TARGET_DIRS)
 $(TARGET_DIRS): %:
 	mkdir -p "$@"
 endif
-

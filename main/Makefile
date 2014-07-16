@@ -11,4 +11,3 @@ endif
 include $(COMMON_MK)
 
 compile: $(OBJECTS)
-
