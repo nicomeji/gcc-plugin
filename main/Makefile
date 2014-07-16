@@ -11,11 +11,6 @@ TARGET_DIR = target
 $(shell mkdir -p "$(TARGET_DIR)")
 endif
 
-include $(COMMON_MK)
+include common.mk
 
 compile: $(OBJECTS)
-
-package: $(TARGET_DIR)/lib$(SHARED_LIB_NM).so
-
-$(TARGET_DIR)/lib$(SHARED_LIB_NM).so: compile
-	
