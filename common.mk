@@ -29,7 +29,7 @@ clean:
 #################### COMPILATION CONSTANTS:
 CC                  = gcc
 GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
-CPPFLAGS           += $(addprefix -I , "$(GCC_PLUGIN_HEADERS)")
+CPPFLAGS           += -I "$(GCC_PLUGIN_HEADERS)"
 #################################################################################
 #################### COMPILATION FUNCTIONS:
 define getObjFileNameFromSrc

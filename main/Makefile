@@ -11,7 +11,7 @@ include common.mk
 
 compile: $(OBJECTS)
 
-package: $(TARGET_DIR)/lib$(SHARED_LIB_NM).so
+package: $(TARGET_DIR)/lib$(SHARED_LIB_NM).so | compile
 
 $(TARGET_DIR)/lib$(SHARED_LIB_NM).so: $(OBJECTS)
 	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@
