@@ -1,12 +1,17 @@
 .PHONY: compile package
-.DEFAULT_GOAL := compile
+.DEFAULT_GOAL := package
 
-GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
-CPPFLAGS           += -I "$(GCC_PLUGIN_HEADERS)"
 SOURCES             = $(shell find "src" -name "*.c";)
-SHARED_LIB_NM      ?= myplugin
 TARGET_DIR         ?= target
+SHARED_LIB_NM      ?= mylib
+CFLAGS              = -Wall -fPIC
+LDFLAGS             = -shared
 
 include common.mk
 
 compile: $(OBJECTS)
+
+package: $(TARGET_DIR)/lib$(SHARED_LIB_NM).so
+
+$(TARGET_DIR)/lib$(SHARED_LIB_NM).so: $(OBJECTS)
+	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@
