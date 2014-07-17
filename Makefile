@@ -15,4 +15,4 @@ compile:
 	$(MAKE) -C main -e TARGET_DIR=../$(TARGET_DIR)/main compile
 
 test:
-	$(MAKE) -C test -e TARGET_DIR=../$(TARGET_DIR)/main execute
+	$(MAKE) -C test -e TARGET_DIR=../$(TARGET_DIR)/test execute
