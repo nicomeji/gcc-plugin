@@ -23,6 +23,9 @@
 # Target dir
 target
 
+# Dependencies
+dependency
+
 # Eclipse files
 .project
 .cproject
