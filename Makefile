@@ -17,8 +17,9 @@ compile:
 test:
 	$(MAKE) -C test -e TARGET_DIR=../$(TARGET_DIR)/test execute
 
-dependency.test: | dependency/test/Unity
-	git clone https://github.com/ThrowTheSwitch/Unity.git --branch v2.1.0 dependency/test/Unity
+test.dependency: dependency/test/Unity
+	@echo Dependencies updated
 
 dependency/test/Unity: %:
 	mkdir -p "$@"
+	git clone https://github.com/ThrowTheSwitch/Unity.git --branch v2.1.0 dependency/test/Unity
