@@ -1,11 +1,12 @@
-.PHONY: clean all compile package test dependency.test
+.PHONY: clean all compile package test
 .DEFAULT_GOAL := all
 
-TARGET_DIR = target
+TARGET_DIR     = target
+DEPENDENCY_DIR = dependency
 
 include common.mk
 
-all: | compile test.dependency test package
+all: | compile test package
 	@echo All done
 
 package:
@@ -15,11 +16,4 @@ compile:
 	$(MAKE) -C main -e TARGET_DIR=../$(TARGET_DIR)/main compile
 
 test:
-	$(MAKE) -C test -e TARGET_DIR=../$(TARGET_DIR)/test execute
-
-test.dependency: dependency/test/Unity
-	@echo Dependencies updated
-
-dependency/test/Unity: %:
-	mkdir -p "$@"
-	git clone https://github.com/ThrowTheSwitch/Unity.git --branch v2.1.0 dependency/test/Unity
+	$(MAKE) -C test -e TARGET_DIR=../$(TARGET_DIR)/test -e DEPENDENCY_DIR=../$(DEPENDENCY_DIR) execute
