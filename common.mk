@@ -21,13 +21,19 @@
 #                       tree in the TARGET_DIR to avoid compilation errors
 #                       (caused by missing directories).
 # 
+.PHONY: clean
 
+TARGET_DIR     ?= trg
+DEPENDENCY_DIR ?= dep
+
+#################################################################################
+#################### COMMON RULES:
 clean:
 	rm -rf "$(TARGET_DIR)"
 	@echo "$(TARGET_DIR) deleted."
 #################################################################################
 #################### COMPILATION CONSTANTS:
-CC                  = gcc
+CC                 ?= gcc
 GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
 CPPFLAGS           += -I "$(GCC_PLUGIN_HEADERS)"
 #################################################################################
@@ -49,3 +55,11 @@ $(TARGET_DIR)/%.o: %.c | $(TARGET_DIRS)
 #################### DIRECTORY GENERATION RULES:
 $(TARGET_DIRS): %:
 	mkdir -p "$@"
+#################################################################################
+#################### RECURSIVE RULES:
+define RECURSIVE_RULES
+.PHONY: $1.%
+$1.%:
+	$(MAKE) -C $1 -e TARGET_DIR=../$(TARGET_DIR)/$1 -e DEPENDENCY_DIR=../$(DEPENDENCY_DIR) $$*
+endef
+$(foreach directory,$(RECURSIVE_SUBDIRS),$(eval $(call RECURSIVE_RULES,$(directory))))

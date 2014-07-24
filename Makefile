@@ -1,19 +1,20 @@
-.PHONY: clean all compile package test
+.PHONY: clean-all all compile package test
 .DEFAULT_GOAL := all
 
 TARGET_DIR     = target
 DEPENDENCY_DIR = dependency
-
+RECURSIVE_SUBDIRS = main test
 include common.mk
 
 all: | compile test package
 	@echo All done
 
-package:
-	$(MAKE) -C main -e TARGET_DIR=../$(TARGET_DIR)/main package
+clean-all: clean
+	rm -rf "$(DEPENDENCY_DIR)"
+	@echo "$(DEPENDENCY_DIR) deleted."
 
-compile:
-	$(MAKE) -C main -e TARGET_DIR=../$(TARGET_DIR)/main compile
+package: main.package
 
-test:
-	$(MAKE) -C test -e TARGET_DIR=../$(TARGET_DIR)/test -e DEPENDENCY_DIR=../$(DEPENDENCY_DIR) execute
+compile: main.compile
+
+test: test.execute
