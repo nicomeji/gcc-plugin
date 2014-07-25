@@ -3,7 +3,7 @@
 
 TARGET_DIR     = target
 DEPENDENCY_DIR = deps
-RECURSIVE_SUBDIRS = main test deps
+RECURSIVE_SUBDIRS = main test $(DEPENDENCY_DIR)
 include common.mk
 
 all: | dependency compile test package
@@ -11,7 +11,7 @@ all: | dependency compile test package
 
 clean-all: clean $(DEPENDENCY_DIR).clean
 
-dependency: $(DEPENDENCY_DIR).dowload-all
+dependency: $(DEPENDENCY_DIR).download-all
 
 compile: main.compile | dependency
 

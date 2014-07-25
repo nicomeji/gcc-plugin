@@ -2,7 +2,7 @@
 .DEFAULT_GOAL := package
 
 SOURCES           = $(shell find "src" -name "*.c";)
-SOURCES          += $(shell find "$(DEPENDENCY_DIR)/Unity/src" -name "*.c";)
+SOURCES          += $(shell find "$(DEPENDENCY_DIR)/Unity-2.1.0/src" -name "*.c";)
 TEST_EXECUTER_NM ?= mylib
 
 include common.mk
