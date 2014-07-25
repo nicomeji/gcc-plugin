@@ -24,7 +24,8 @@
 target
 
 # Dependencies
-dependency
+deps/*
+!deps/Makefile
 
 # Eclipse files
 .project
