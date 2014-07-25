@@ -1,20 +1,20 @@
-.PHONY: clean-all all compile package test
+.PHONY: clean-all all dependency compile package test
 .DEFAULT_GOAL := all
 
 TARGET_DIR     = target
-DEPENDENCY_DIR = dependency
-RECURSIVE_SUBDIRS = main test
+DEPENDENCY_DIR = deps
+RECURSIVE_SUBDIRS = main test deps
 include common.mk
 
-all: | compile test package
+all: | dependency compile test package
 	@echo All done
 
-clean-all: clean
-	rm -rf "$(DEPENDENCY_DIR)"
-	@echo "$(DEPENDENCY_DIR) deleted."
+clean-all: clean $(DEPENDENCY_DIR).clean
 
-package: main.package
+dependency: $(DEPENDENCY_DIR).dowload-all
 
-compile: main.compile
+compile: main.compile | dependency
 
-test: test.execute
+package: main.package | compile
+
+test: test.execute | compile
