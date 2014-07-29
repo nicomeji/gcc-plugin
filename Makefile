@@ -1,17 +1,26 @@
 .PHONY: clean-all all dependency compile package test
 .DEFAULT_GOAL := all
 
-TARGET_DIR     = target
-DEPENDENCY_DIR = deps
-RECURSIVE_SUBDIRS = main test $(DEPENDENCY_DIR)
+#################################################################################
+#################### COMPILATION CONSTANTS:
+CC                 ?= gcc
+GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
+
+#################################################################################
+#################### RECURSIVE CONSTANTS:
+RECURSIVE_SUBDIRS  = main test deps
+EXPORT_VARS        = GCC_PLUGIN_HEADERS=$(GCC_PLUGIN_HEADERS)
+EXPORT_VARS       += DEPENDENCY_DIR=../deps
+EXPORT_VARS       += CC=$(CC)
+
 include common.mk
 
 all: | dependency compile test package
 	@echo All done
 
-clean-all: clean $(DEPENDENCY_DIR).clean
+clean-all: clean deps.clean
 
-dependency: $(DEPENDENCY_DIR).download-all
+dependency: deps.download-all
 
 compile: main.compile | dependency
 

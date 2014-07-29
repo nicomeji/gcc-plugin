@@ -23,8 +23,7 @@
 # 
 .PHONY: clean
 
-TARGET_DIR     ?= trg
-DEPENDENCY_DIR ?= dep
+TARGET_DIR ?= target
 
 #################################################################################
 #################### COMMON RULES:
@@ -55,6 +54,6 @@ $(TARGET_DIRS): %:
 define RECURSIVE_RULES
 .PHONY: $1.%
 $1.%:
-	$(MAKE) -C $1 -e TARGET_DIR=../$(TARGET_DIR)/$1 -e DEPENDENCY_DIR=../$(DEPENDENCY_DIR) $$*
+	$(MAKE) -C $1 -e TARGET_DIR=../$(TARGET_DIR)/$1 $(foreach var,$(EXPORT_VARS), -e $(var)) $$*
 endef
 $(foreach directory,$(RECURSIVE_SUBDIRS),$(eval $(call RECURSIVE_RULES,$(directory))))
