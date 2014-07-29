@@ -7,6 +7,12 @@ SHARED_LIB_NM      ?= mylib
 CFLAGS              = -Wall -fPIC
 LDFLAGS             = -shared
 
+#################################################################################
+#################### COMPILATION CONSTANTS:
+CC                 ?= gcc
+GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
+CPPFLAGS           += -I "$(GCC_PLUGIN_HEADERS)"
+
 include common.mk
 
 compile: $(OBJECTS)

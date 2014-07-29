@@ -32,11 +32,6 @@ clean:
 	rm -rf "$(TARGET_DIR)"
 	@echo "$(TARGET_DIR) deleted."
 #################################################################################
-#################### COMPILATION CONSTANTS:
-CC                 ?= gcc
-GCC_PLUGIN_HEADERS ?= /usr/lib/gcc/x86_64-linux-gnu/4.8/plugin/include/
-CPPFLAGS           += -I "$(GCC_PLUGIN_HEADERS)"
-#################################################################################
 #################### COMPILATION FUNCTIONS:
 define getObjFileNameFromSrc
 $(addprefix $(TARGET_DIR)/, $(patsubst %.c, %.o, $1))
