@@ -21,12 +21,12 @@
 #                       tree in the TARGET_DIR to avoid compilation errors
 #                       (caused by missing directories).
 # 
-.PHONY: clean
-
-TARGET_DIR ?= target
-
+ifndef TARGET_DIR
+$(error "Missing target dir!")
+endif
 #################################################################################
 #################### COMMON RULES:
+.PHONY: clean
 clean:
 	rm -rf "$(TARGET_DIR)"
 	@echo "$(TARGET_DIR) deleted."

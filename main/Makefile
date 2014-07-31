@@ -2,10 +2,12 @@
 .DEFAULT_GOAL := package
 
 SOURCES             = $(shell find "src" -name "*.c";)
-TARGET_DIR         ?= target
 SHARED_LIB_NM      ?= mylib
 CFLAGS              = -Wall -fPIC
 LDFLAGS             = -shared
+
+TARGET_DIR          = .target
+$(shell if ! [ -L ".target" ]; then ln -s "$(MAIN_OBJ_DIR)" ".target"; fi;)
 
 #################################################################################
 #################### COMPILATION CONSTANTS:

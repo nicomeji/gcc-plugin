@@ -1,6 +1,7 @@
 .PHONY: compile package execute
 .DEFAULT_GOAL := package
 
+# MAIN_OBJECTS      = $(shell find "$(MAIN_OBJ_DIR)" -name "*.c";)
 SOURCES           = $(shell find "src" -name "*.c";)
 SOURCES          += $(shell find "$(DEPENDENCY_DIR)/Unity-2.1.0/src" -name "*.c";)
 TEST_EXECUTER_NM ?= mylib
