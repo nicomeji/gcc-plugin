@@ -21,12 +21,12 @@
 #                       tree in the TARGET_DIR to avoid compilation errors
 #                       (caused by missing directories).
 # 
-.PHONY: clean
-
-TARGET_DIR ?= target
-
+ifndef RECURSIVE_SUBDIRS
+$(error "Missing RECURSIVE_SUBDIRS.")
+endif
 #################################################################################
 #################### COMMON RULES:
+.PHONY: clean
 clean:
 	rm -rf "$(TARGET_DIR)"
 	@echo "$(TARGET_DIR) deleted."
@@ -49,11 +49,3 @@ $(TARGET_DIR)/%.o: %.c | $(TARGET_DIRS)
 #################### DIRECTORY GENERATION RULES:
 $(TARGET_DIRS): %:
 	mkdir -p "$@"
-#################################################################################
-#################### RECURSIVE RULES:
-define RECURSIVE_RULES
-.PHONY: $1.%
-$1.%:
-	$(MAKE) -C $1 -e TARGET_DIR=../$(TARGET_DIR)/$1 $(foreach var,$(EXPORT_VARS), -e $(var)) $$*
-endef
-$(foreach directory,$(RECURSIVE_SUBDIRS),$(eval $(call RECURSIVE_RULES,$(directory))))
