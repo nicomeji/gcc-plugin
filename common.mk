@@ -21,8 +21,8 @@
 #                       tree in the TARGET_DIR to avoid compilation errors
 #                       (caused by missing directories).
 # 
-ifndef RECURSIVE_SUBDIRS
-$(error "Missing RECURSIVE_SUBDIRS.")
+ifndef TARGET_DIR
+$(error "Missing TARGET_DIR.")
 endif
 #################################################################################
 #################### COMMON RULES:
