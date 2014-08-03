@@ -17,8 +17,8 @@ all: | compile test package
 
 clean-all: clean deps.clean
 
-compile: main.compile | deps.download-all
+compile: | deps.download-main main.compile
 
 package: main.package | compile
 
-test: test.execute | compile
+test: test.execute | compile deps.download-test

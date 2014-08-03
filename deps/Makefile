@@ -1,6 +1,12 @@
-.PHONY: clean download-all
+.PHONY: clean download-all download-test download-main
 
-download-all: Unity-2.1.0
+download-all: download-test download-main
+
+download-test: Unity-2.1.0
+	@echo Test dependencies updated.
+
+download-main:
+	@echo Main dependencies updated.
 
 clean:
 	rm -rf Unity-2.1.0

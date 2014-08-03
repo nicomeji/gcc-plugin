@@ -21,6 +21,10 @@
 #                       tree in the TARGET_DIR to avoid compilation errors
 #                       (caused by missing directories).
 # 
+ifdef SUBTARGET_DIR
+	TARGET_DIR=$(strip $(PROJECT_ROOT))$(strip $(SUBTARGET_DIR))
+endif
+
 ifndef TARGET_DIR
 $(error "Missing TARGET_DIR.")
 endif
