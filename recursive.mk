@@ -8,7 +8,7 @@ define RECURSIVE_RULES
 .PHONY: $1.%
 $1.%:
 ifdef SUBTARGET_DIR
-	$(eval export SUBTARGET_DIR=$(SUBTARGET_DIR)
+	$(eval export SUBTARGET_DIR=$(SUBTARGET_DIR))
 else
 	$(eval export SUBTARGET_DIR=$(strip $(TARGET_DIR))/$1)
 endif
