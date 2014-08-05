@@ -53,3 +53,11 @@ $(TARGET_DIR)/%.o: %.c | $(TARGET_DIRS)
 #################### DIRECTORY GENERATION RULES:
 $(TARGET_DIRS): %:
 	mkdir -p "$@"
+#################################################################################
+#################### RECURSIVE RULES:
+define RECURSIVE_RULES
+.PHONY: $1.%
+$1.%:
+	$(MAKE) -C $1 -I "../$(PROJECT_ROOT)" -e PROJECT_ROOT="../$(PROJECT_ROOT)" $$*
+endef
+$(foreach directory,$(RECURSIVE_SUBDIRS),$(eval $(call RECURSIVE_RULES,$(directory))))
