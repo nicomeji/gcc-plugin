@@ -14,9 +14,13 @@ main.package main.compile: $(eval export SUBTARGET_DIR=$(strip $(TARGET_DIR))/ma
 test.execute: $(eval export SUBTARGET_DIR=$(strip $(TARGET_DIR))/test)
 test.execute: $(eval export MAIN_OBJ_DIR=$(strip $(TARGET_DIR))/main)
 #################################################################################
+#################### DEPENDENCIES:
+main.compile: deps.download-main
+test.execute: deps.download-test
+#################################################################################
 #################### BUILD RULES:
 clean-all: clean deps.clean
-all: | compile test package
-compile: | deps.download-main main.compile
-test: test.execute | compile deps.download-test
-package: main.package | compile
+all: compile test package
+compile: main.compile 
+test: compile test.execute
+package: main.package
