@@ -24,9 +24,15 @@
 ifndef TARGET_DIR
 $(error "Missing TARGET_DIR.")
 endif
-
+#################################################################################
+#################### FUNCTIONS:
 define getTargetDir
 $(strip $(PROJECT_ROOT))$(strip $(TARGET_DIR))
+endef
+define print
+@tput setaf 2;
+@echo "$1";
+@tput sgr 0;
 endef
 #################################################################################
 #################### COMMON RULES:

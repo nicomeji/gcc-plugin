@@ -6,19 +6,17 @@ MAIN_OBJ=$(shell find $(strip $(PROJECT_ROOT))$(MAIN_OBJ_DIR) -name "*.o")
 
 SOURCES           = $(shell find "src" -name "*.c";)
 SOURCES          += $(shell find "$(UNITY)" -name "*.c";)
-TEST_EXECUTER_NM ?= mylib
-#################################################################################
-#################### COMPILATION CONSTANTS:
-CPPFLAGS = -I "$(GCC_PLUGIN_HEADERS)" -I "$(UNITY)"
+TEST_EXECUTER_NM ?= tests
+CPPFLAGS          = -I "$(GCC_PLUGIN_HEADERS)" -I "$(UNITY)"
 
 include common.mk
 
 compile: $(OBJECTS)
 
-package: $(TARGET_DIR)/$(TEST_EXECUTER_NM) | compile
+package: $(call getTargetDir)/$(TEST_EXECUTER_NM) | compile
 
 execute: package
-	./$(TARGET_DIR)/$(TEST_EXECUTER_NM)
+	./$(call getTargetDir)/$(TEST_EXECUTER_NM)
 
-$(TARGET_DIR)/$(TEST_EXECUTER_NM): $(OBJECTS) $(MAIN_OBJ)
+$(call getTargetDir)/$(TEST_EXECUTER_NM): $(OBJECTS) $(MAIN_OBJ)
 	$(LINK.c) $^ $(LOADLIBES) $(LDLIBS) -o $@
