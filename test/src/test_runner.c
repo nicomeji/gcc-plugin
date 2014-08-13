@@ -5,9 +5,11 @@
 diagnostic_context *global_dc = (diagnostic_context *) NULL;
 
 void setUp(void) {
+   printf ("Set up test.\n");
 }
 
 void tearDown(void) {
+   printf ("Tear down test.\n");
 }
 
 void register_callback(const char *plugin_name, int event,

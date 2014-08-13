@@ -7,7 +7,7 @@
 #include "gcc-plugin.h"
 #include "diagnostic.h"
 
-int plugin_is_GPL_compatible;
+int plugin_is_GPL_compatible=TRUE;
 
 void gate_callback(void *gcc_data, void *user_data) {
    // If there were errors during compilation, let GCC handle the exit.
